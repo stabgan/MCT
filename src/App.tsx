@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ChevronDown, 
-  Layers, 
-  Brain, 
-  Network, 
-  FileText, 
-  Cpu, 
-  Activity, 
-  Database, 
-  Sparkles, 
-  ArrowRight, 
-  Zap, 
-  GitBranch, 
-  Box, 
-  Menu, 
+import {
+  Menu,
   X,
+  Zap,
+  Shield,
+  Users,
+  ChevronRight,
+  PlayCircle,
+  ArrowRight,
+  Layers3,
+  Brain,
   Settings,
-  Target,
-  BarChart3,
-  Code,
-  BookOpen,
-  Star,
-  TrendingUp,
-  Microscope,
-  Shuffle
+  CheckCircle,
+  Activity,
 } from 'lucide-react';
 import NeuralNetworkVisualization from './components/NeuralNetworkVisualization';
 
@@ -36,6 +25,7 @@ const MedCodeTransformer: React.FC = () => {
   const [selectedComorbidity, setSelectedComorbidity] = useState<any>(null);
   const [classificationResult, setClassificationResult] = useState<any>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClassifying, setIsClassifying] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,21 +103,19 @@ const MedCodeTransformer: React.FC = () => {
     }
   ];
 
-  const performClassification = (text: string) => {
-    setClassificationResult({
-      processing: true,
-      codes: []
-    });
-
+  const performClassification = () => {
+    // Simulate classification process
+    setClassificationResult('');
+    setIsClassifying(true);
+    
     setTimeout(() => {
-      setClassificationResult({
-        processing: false,
-        codes: [
-          { code: 'I50.9', description: 'Heart failure, unspecified', confidence: 0.92, chapter: 'Circulatory', level: 'Chapter' },
-          { code: 'I48.91', description: 'Unspecified atrial fibrillation', confidence: 0.87, chapter: 'Circulatory', level: 'Category' },
-          { code: 'J44.0', description: 'COPD with acute lower respiratory infection', confidence: 0.76, chapter: 'Respiratory', level: 'Subcategory' }
-        ]
-      });
+      const results = [
+        'E11.9 - Type 2 diabetes mellitus without complications (89.3%)',
+        'I10 - Essential hypertension (76.8%)',
+        'Z51.11 - Encounter for antineoplastic chemotherapy (45.2%)'
+      ];
+      setClassificationResult(results.join('\n'));
+      setIsClassifying(false);
     }, 2000);
   };
 
@@ -282,7 +270,7 @@ const MedCodeTransformer: React.FC = () => {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <ChevronDown className="w-6 h-6 mx-auto text-text-muted" />
+            <ChevronRight className="w-6 h-6 mx-auto text-text-muted" />
           </motion.div>
         </div>
       </section>
@@ -308,7 +296,7 @@ const MedCodeTransformer: React.FC = () => {
                 color: "#6366F1"
               },
               { 
-                icon: <Layers className="w-6 h-6" />, 
+                icon: <Layers3 className="w-6 h-6" />, 
                 title: "Asymmetric Architecture", 
                 desc: "20-layer encoder with interleaved local/global attention, 7-layer decoder with GQA", 
                 delay: 100,
@@ -322,7 +310,7 @@ const MedCodeTransformer: React.FC = () => {
                 color: "#F59E0B"
               },
               { 
-                icon: <Target className="w-6 h-6" />, 
+                icon: <Shield className="w-6 h-6" />, 
                 title: "Factorized Embeddings", 
                 desc: "Parameter-efficient V→E→H embedding strategy with weight tying", 
                 delay: 300,
@@ -336,7 +324,7 @@ const MedCodeTransformer: React.FC = () => {
                 color: "#6366F1"
               },
               { 
-                icon: <Network className="w-6 h-6" />, 
+                icon: <Users className="w-6 h-6" />, 
                 title: "Tiered Comorbidity", 
                 desc: "Statistical co-occurrence for common, knowledge-based for rare diseases", 
                 delay: 500,
@@ -405,7 +393,7 @@ const MedCodeTransformer: React.FC = () => {
               },
               {
                 title: "Decoder Specifications", 
-                icon: <Network className="w-5 h-5" />,
+                icon: <Users className="w-5 h-5" />,
                 color: "#8B5CF6",
                 specs: [
                   "7 layers (3 sub-layers)",
@@ -484,7 +472,7 @@ const MedCodeTransformer: React.FC = () => {
           >
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 bg-neural-embedding rounded-xl flex items-center justify-center">
-                <Target className="w-6 h-6 text-white" />
+                <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-text-primary">Factorized Embedding Strategy</h3>
@@ -519,7 +507,7 @@ const MedCodeTransformer: React.FC = () => {
           >
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 bg-neural-flow rounded-xl flex items-center justify-center">
-                <Shuffle className="w-6 h-6 text-white" />
+                <PlayCircle className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-text-primary">Mixture-of-Denoisers Pre-training</h3>
@@ -575,7 +563,7 @@ const MedCodeTransformer: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-neural-encoder rounded-xl flex items-center justify-center">
-                  <GitBranch className="w-6 h-6 text-white" />
+                  <ChevronRight className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Interleaved Local/Global Attention</h3>
@@ -608,7 +596,7 @@ const MedCodeTransformer: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-secondary-500 rounded-xl flex items-center justify-center">
-                  <Microscope className="w-6 h-6 text-white" />
+                  <PlayCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Rotary Position Embeddings</h3>
@@ -652,7 +640,7 @@ const MedCodeTransformer: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="mb-4 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-accent-500" />
+              <CheckCircle className="w-5 h-5 text-accent-500" />
               <span className="text-sm text-text-secondary">
                 Try typing medical terms or ICD codes like "E11", "I50", "diabetes", "hypertension"
               </span>
@@ -836,17 +824,12 @@ const MedCodeTransformer: React.FC = () => {
               defaultValue="65-year-old male with history of congestive heart failure and atrial fibrillation presents with worsening dyspnea and lower extremity edema. Physical examination reveals bilateral crackles and 3+ pitting edema. Also noted COPD exacerbation with increased sputum production."
               id="classification-input"
             />
-            <motion.button
-              onClick={(e) => {
-                const textarea = document.getElementById('classification-input') as HTMLTextAreaElement;
-                performClassification(textarea.value);
-              }}
+            <button 
+              onClick={performClassification}
               className="mt-4 w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-3 rounded-xl font-semibold hover:shadow-neural transition-all duration-300"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               Classify ICD-10 Codes
-            </motion.button>
+            </button>
             
             <AnimatePresence>
               {classificationResult && (
@@ -856,7 +839,7 @@ const MedCodeTransformer: React.FC = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                 >
-                  {classificationResult.processing ? (
+                  {isClassifying ? (
                     <div className="text-center py-8">
                       <div className="relative inline-block">
                         <div className="w-16 h-16 border-4 border-gray-200 rounded-full"></div>
@@ -873,36 +856,35 @@ const MedCodeTransformer: React.FC = () => {
                   ) : (
                     <div className="space-y-3">
                       <h4 className="font-semibold text-text-primary">Predicted ICD-10 Codes:</h4>
-                      {classificationResult.codes.map((code: any, idx: number) => (
+                      {classificationResult.split('\n').map((code: string, idx: number) => (
                         <motion.div 
                           key={idx} 
-                          className="bg-background-subtle rounded-xl p-4 flex flex-col sm:flex-row sm:justify-between sm:items-center hover:bg-gray-100 transition-all gap-4"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.1 }}
+                          className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-300"
                         >
-                          <div className="flex-1">
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                              <span className="font-mono font-bold text-primary-600 text-lg">{code.code}</span>
-                              <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full w-fit font-medium">
-                                {code.chapter}
-                              </span>
-                              <span className="text-xs bg-secondary-100 text-secondary-700 px-2 py-1 rounded-full w-fit font-medium">
-                                {code.level}
-                              </span>
+                          <div className="flex items-start gap-4">
+                            <div className="flex-1">
+                              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                                <span className="font-mono font-bold text-primary-600 text-lg">{code.split(' - ')[0]}</span>
+                                <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full w-fit font-medium">
+                                  {code.split(' - ')[1].split(' (')[0]}
+                                </span>
+                              </div>
+                              <p className="text-sm text-text-secondary">{code.split(' - ')[0]} Classification</p>
                             </div>
-                            <p className="text-sm text-text-secondary">{code.description}</p>
-                          </div>
-                          <div className="text-center sm:text-right sm:ml-4">
-                            <div className="text-sm text-text-muted mb-1">Confidence</div>
-                            <div className="font-bold text-lg text-text-primary">{(code.confidence * 100).toFixed(0)}%</div>
-                            <div className="w-20 h-2 bg-gray-200 rounded-full mt-1 overflow-hidden mx-auto sm:mx-0">
-                              <motion.div 
-                                className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
-                                initial={{ width: 0 }}
-                                animate={{ width: `${code.confidence * 100}%` }}
-                                transition={{ duration: 1, delay: idx * 0.1 }}
-                              />
+                            <div className="text-center sm:text-right sm:ml-4">
+                              <div className="text-sm text-text-muted mb-1">Confidence</div>
+                              <div className="font-bold text-lg text-text-primary">{code.split(' (')[1].replace(')', '')}</div>
+                              <div className="w-20 h-2 bg-gray-200 rounded-full mt-1 overflow-hidden mx-auto sm:mx-0">
+                                <motion.div 
+                                  className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${code.split(' (')[1].replace(')', '').replace('%', '')}%` }}
+                                  transition={{ duration: 1, delay: idx * 0.1 }}
+                                />
+                              </div>
                             </div>
                           </div>
                         </motion.div>

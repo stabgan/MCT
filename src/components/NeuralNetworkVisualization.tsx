@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Brain,
-  Network,
+import {
+  Activity,
+  Layers3,
   Settings,
-  Layers,
   FileText,
   Target,
   Hash
@@ -114,7 +113,7 @@ const NeuralNetworkVisualization: React.FC = () => {
       color: '#3B82F6',
       textColor: '#FFFFFF',
       stackCount: 20,
-      icon: <Layers className="w-6 h-6" />
+      icon: <Layers3 className="w-6 h-6" />
     },
     // Classification path (right)
     {
@@ -159,7 +158,7 @@ const NeuralNetworkVisualization: React.FC = () => {
       color: '#8B5CF6',
       textColor: '#FFFFFF',
       stackCount: 7,
-      icon: <Network className="w-6 h-6" />
+      icon: <Activity className="w-6 h-6" />
     },
     {
       id: 'output-projection',
